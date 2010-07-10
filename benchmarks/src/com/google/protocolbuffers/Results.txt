@@ -1,0 +1,18 @@
+The following are results from running the IntArrayBenchmark, just comparing preallocation vs not doing so.
+CPU: Core 2 Duo T7200 @ 2.00GHz
+JVM: 32-bit Windows JDK, 1.6.20
+JVM Args: -server -Xms800m -Xmx800m -XX:+UseParallelOldGC
+
+We can see that for serializing arrays, preallocating gives a ~33% speedup, and a ~18% when serializing
+a set manually through iteration (serializeCollection2). It doesn't really help when serializing a collection,
+since the underlying implementation does the preallocation for us.
+
+Size: 100000		 Iterations: 100
+DefaultSerializer.serializeArray                                     2632563
+DefaultSerializer.serializeCollection1                               5481728
+DefaultSerializer.serializeCollection2                               6902459
+DefaultSerializer.serializeList                                      1483352
+PreAllocationSerializer.serializeArray                               1985843
+PreAllocationSerializer.serializeCollection1                         6418446
+PreAllocationSerializer.serializeCollection2                         5887211
+PreAllocationSerializer.serializeList                                1471546

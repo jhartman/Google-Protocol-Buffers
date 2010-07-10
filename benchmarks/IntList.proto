@@ -1,0 +1,8 @@
+package benchmarks;
+
+option java_outer_classname = "PrimitiveTypes";
+option optimize_for = SPEED;
+
+message IntList {
+  repeated int32 items = 1 [packed=true];
+}
