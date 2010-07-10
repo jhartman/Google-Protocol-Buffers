@@ -371,7 +371,7 @@ GenerateBuilderMembers(io::Printer* printer) const {
     "}\n"
     "public Builder add$capitalized_name$($type$ value) {\n"
     "$null_check$"
-    "  if (result.$name$_.isEmpty()) {\n"
+    "  if (result.$name$_ == java.util.Collections.EMPTY_LIST) {\n"
     "    result.$name$_ = new java.util.ArrayList<$boxed_type$>();\n"
     "  }\n"
     "  result.$name$_.add(value);\n"
@@ -379,7 +379,7 @@ GenerateBuilderMembers(io::Printer* printer) const {
     "}\n"
     "public Builder addAll$capitalized_name$(\n"
     "    java.lang.Iterable<? extends $boxed_type$> values) {\n"
-    "  if (result.$name$_.isEmpty()) {\n"
+    "  if (result.$name$_ == java.util.Collections.EMPTY_LIST) {\n"
     "    result.$name$_ = new java.util.ArrayList<$boxed_type$>();\n"
     "  }\n"
     "  super.addAll(values, result.$name$_);\n"
@@ -387,6 +387,14 @@ GenerateBuilderMembers(io::Printer* printer) const {
     "}\n"
     "public Builder clear$capitalized_name$() {\n"
     "  result.$name$_ = java.util.Collections.emptyList();\n"
+    "  return this;\n"
+    "}\n"
+    "public Builder ensure$capitalized_name$Capacity(int minCapacity) {\n"
+    "  if(result.$name$_ == java.util.Collections.EMPTY_LIST) {\n"
+    "    result.$name$_ = new java.util.ArrayList<$boxed_type$>(minCapacity);\n"
+    "  } else {\n"
+    "    ((java.util.ArrayList<$boxed_type$>) result.$name$_).ensureCapacity(minCapacity);\n"
+    "  }\n;"
     "  return this;\n"
     "}\n");
 }
@@ -400,7 +408,7 @@ void RepeatedPrimitiveFieldGenerator::
 GenerateMergingCode(io::Printer* printer) const {
   printer->Print(variables_,
     "if (!other.$name$_.isEmpty()) {\n"
-    "  if (result.$name$_.isEmpty()) {\n"
+    "  if (result.$name$_ == java.util.Collections.EMPTY_LIST) {\n"
     "    result.$name$_ = new java.util.ArrayList<$boxed_type$>();\n"
     "  }\n"
     "  result.$name$_.addAll(other.$name$_);\n"
